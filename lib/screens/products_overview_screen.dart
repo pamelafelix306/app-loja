@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/products_grid_widget.dart';
+import '../widgets/badge_widget.dart';
+import '../providers/cart.dart';
+import './cart_screen.dart';
 
 enum FilterOptions {
-  OnlyFavorites,
-  ShowAll,
+  Favorites,
+  All,
 }
 
 class ProductsOverviewScreen extends StatefulWidget {
@@ -13,7 +17,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 }
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
-  var showOnlyFavs = false;
+  var _showOnlyFavorites = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,26 +26,46 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         title: Text('My e-Com Platform'),
         actions: <Widget>[
           PopupMenuButton(
-            icon: Icon(Icons.more_vert),
+            onSelected: (FilterOptions selectedValue) {
+              setState(() {
+                if (selectedValue == FilterOptions.Favorites) {
+                  _showOnlyFavorites = true;
+                } else {
+                  _showOnlyFavorites = false;
+                }
+              });
+            },
+            icon: Icon(
+              Icons.more_vert,
+            ),
             itemBuilder: (_) => [
               PopupMenuItem(
                 child: Text('Only Favorites'),
-                value: FilterOptions.OnlyFavorites,
+                value: FilterOptions.Favorites,
               ),
               PopupMenuItem(
                 child: Text('Show All'),
-                value: FilterOptions.ShowAll,
+                value: FilterOptions.All,
               ),
             ],
-            onSelected: (FilterOptions selectedValue) {
-              setState(() {
-                showOnlyFavs = selectedValue == FilterOptions.OnlyFavorites;
-              });
-            },
-          )
+          ),
+          Consumer<Cart>(
+            builder: (_, cart, ch) => BadgeWidget(
+              child: ch,
+              value: cart.itemCount.toString(),
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+            ),
+          ),
         ],
       ),
-      body: ProductsGridWidget(showOnlyFavs),
+      body: ProductsGridWidget(_showOnlyFavorites),
     );
   }
 }
