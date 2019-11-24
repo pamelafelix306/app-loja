@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_example_ecommerce/widgets/sidebar.widget.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/products_grid_widget.dart';
@@ -65,6 +66,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           ),
         ],
       ),
+      drawer: SidebarWidget(),
       body: ProductsGridWidget(_showOnlyFavorites),
     );
   }
