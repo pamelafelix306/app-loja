@@ -13,7 +13,7 @@ class AppDrawer extends StatelessWidget {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                  Image.asset("assets/images/logo2.png",
+                  Image.asset("assets/images/logo.png",
                     fit: BoxFit.contain,
                     height: 90
                   ),
