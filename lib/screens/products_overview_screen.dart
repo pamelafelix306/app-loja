@@ -24,7 +24,15 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MyShop'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+              Image.asset("assets/images/logo2.png",
+                fit: BoxFit.contain,
+                height: 90
+              ),
+          ],
+        ),
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {

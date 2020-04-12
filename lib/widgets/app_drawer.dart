@@ -10,8 +10,15 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           AppBar(
-            title: Text('Hello Friend!'),
-            automaticallyImplyLeading: false,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                  Image.asset("assets/images/logo2.png",
+                    fit: BoxFit.contain,
+                    height: 90
+                  ),
+              ],
+            ),
           ),
           Divider(),
           ListTile(

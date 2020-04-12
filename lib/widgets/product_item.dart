@@ -17,7 +17,7 @@ class ProductItem extends StatelessWidget {
     final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(0),
       child: GridTile(
         child: GestureDetector(
           onTap: () {
@@ -26,13 +26,18 @@ class ProductItem extends StatelessWidget {
               arguments: product.id,
             );
           },
-          child: Image.network(
-            product.imageUrl,
-            fit: BoxFit.cover,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(40, 0, 40, 40),
+            child: ClipRect(
+                child: Image.network(
+                  product.imageUrl,
+                  fit: BoxFit.cover,
+                ),
+              ),
           ),
         ),
         footer: GridTileBar(
-          backgroundColor: Colors.black87,
+          backgroundColor: Colors.transparent,
           leading: Consumer<Product>(
             builder: (ctx, product, _) => IconButton(
                   icon: Icon(
